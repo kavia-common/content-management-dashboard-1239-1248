@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Blog Frontend (Next.js)
+
+Modern, SEO-optimized blog platform frontend with a CMS UI.
+
+## Features
+- Header with navigation (Home, Dashboard, New Post)
+- CMS Dashboard with quick stats and recent posts
+- Post list with filtering sidebar (search, status, tags)
+- Post editor (title, slug, tags, status, content)
+- Responsive post pages at `/posts/[slug]`
+- Light modern theme with accents (#3B82F6 primary, #F59E0B success)
+- Uses backend API via `NEXT_PUBLIC_API_BASE`
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1) Copy `.env.example` to `.env.local` and adjust values:
+```
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2) Install and run:
+```
+npm install
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
+- NEXT_PUBLIC_API_BASE: Base URL for blog backend (e.g., http://localhost:4000)
+- NEXT_PUBLIC_BACKEND_URL: Optional alias to backend base
+- NEXT_PUBLIC_FRONTEND_URL: Public URL of this site
+- NEXT_PUBLIC_WS_URL: WebSocket base (reserved for future real-time features)
+- Additional flags documented in `.env.example`
 
-## Learn More
+## Notes
+- API calls are centralized in `src/lib/api.ts`
+- Theming constants are in `src/lib/theme.ts`
+- Tailwind v4 is enabled via `@tailwindcss/postcss` with custom CSS variables in `globals.css`
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy
+- Build: `npm run build`
+- Start: `npm start`
+- Output mode: standalone (supports dynamic routes and server features without static export).
+  - You can switch to static export by setting `output: "export"` in `next.config.ts` and ensuring `generateStaticParams()` provides slugs at build time.
